@@ -1,7 +1,7 @@
 import { defineConfig } from 'cypress'
 import { faker } from '@faker-js/faker';
 
-import { UserDTO } from "./cypress/support/DTOs/UserDTO";
+import { UserModel } from "./cypress/support/DTOs/UserModel";
 
 export default defineConfig({
   watchForFileChanges: false,
@@ -11,23 +11,21 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       on('task', {
         generateUser() {
-          let userDTO: UserDTO = {
-            gender: faker.datatype.boolean(),
-            username: faker.internet.userName(),
+          let userModel: UserModel = {
+            name: faker.internet.userName(),
             email: faker.internet.email(),
             password: faker.internet.password(),
-            dateOfBirth: faker.date.birthdate().toString(),
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName(),
+            firstname: faker.name.firstName(),
+            lastname: faker.name.lastName(),
             company: faker.company.name(),
-            streetAddress: faker.address.streetAddress(),
+            address1: faker.address.streetAddress(),
             country: faker.address.country(),
             state: faker.address.state(),
             city: faker.address.city(),
-            zipCode: faker.address.zipCode(),
-            phoneNumber: faker.phone.number('#########')
+            zipcode: faker.address.zipCode(),
+            mobile_number: faker.phone.number('#########')
           };
-          return userDTO;
+          return userModel;
         }
       })
     }
