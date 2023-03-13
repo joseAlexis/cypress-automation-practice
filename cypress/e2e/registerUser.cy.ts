@@ -1,18 +1,21 @@
 import { UserModel } from "../support/DTOs/UserModel";
 
 describe('Resgister User', () => {
-    beforeEach(function () {
-        cy.visit('/');
-    })
+    // beforeEach(function () {
+    //     cy.visit('/');
+    // })
 
     it('Should register a new user', () => {
+        cy.visit('/');
+
         cy.get('a[href="/login"]').click();
         cy.get('div.signup-form > h2').should('be.visible').and('have.text', 'New User Signup!');
 
         cy.task('generateUser').then(function (userModel: UserModel) {
-            cy.get('[data-qa="signup-name"]').type(userModel.name)
-            cy.get('[data-qa="signup-email"]').type(userModel.email);
-            cy.get('[data-qa="signup-button"]').click();
+            cy.registerUserUI(userModel.name, userModel.email);
+            // cy.get('[data-qa="signup-name"]').type(userModel.name)
+            // cy.get('[data-qa="signup-email"]').type(userModel.email);
+            // cy.get('[data-qa="signup-button"]').click();
 
             cy.url().should('eq', `${Cypress.config().baseUrl}/signup`);
             cy.get('.login-form > h2').should('be.visible').and('contain', 'Enter Account Information');
@@ -36,6 +39,19 @@ describe('Resgister User', () => {
             cy.get('[href="/delete_account"]').click();
             cy.url().should('eq', `${Cypress.config().baseUrl}/delete_account`)
             cy.get('[data-qa="account-deleted"]').should('be.visible').and('have.text', 'Account Deleted!');
+        });
+    });
+
+    it('Should register a user with an existing email', () => {
+        cy.visit('/login');
+
+        cy.task('generateUser').then(function (user: UserModel) {
+            cy.createUserApi(user);
+
+            cy.registerUserUI(user.name, user.email);
+            cy.get('form[action="/signup"] > p').should('be.visible').and('have.text', 'Email Address already exist!');
+
+            cy.removeUserApi(user.email, user.password);
         });
     })
 })

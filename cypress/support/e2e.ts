@@ -15,11 +15,12 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-import { createUserApi, removeUserApi, login } from '../commands/users'
+import { createUserApi, removeUserApi, login, registerUserUI } from '../commands/users'
 
 Cypress.Commands.add('createUserApi', createUserApi);
 Cypress.Commands.add('removeUserApi', removeUserApi);
 Cypress.Commands.add('login', login);
+Cypress.Commands.add('registerUserUI', registerUserUI);
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

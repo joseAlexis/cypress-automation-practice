@@ -16,6 +16,11 @@ declare global {
              * Login a user into the system
              */
             login(email: string, password: string): typeof login
+
+            /**
+             * Register a user on the UI
+             */
+            registerUserUI(email: string, password: string): typeof registerUserUI
         }
     }
 }
@@ -24,6 +29,12 @@ export const login = (email: string, password: string) => {
     cy.get('[data-qa="login-email"]').type(email)
     cy.get('[data-qa="login-password"]').type(password);
     cy.get('[data-qa="login-button"]').click();
+}
+
+export const registerUserUI = (email: string, password: string) => {
+    cy.get('[data-qa="signup-name"]').type(email)
+    cy.get('[data-qa="signup-email"]').type(password);
+    cy.get('[data-qa="signup-button"]').click();
 }
 
 export const removeUserApi = (email: string, password: string) => {
