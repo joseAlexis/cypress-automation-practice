@@ -1,0 +1,6 @@
+{
+  "invalidCredentials": {
+    "email": "helloeveryone123@test.com",
+    "password": "NotValidPass!"
+  }
+}
