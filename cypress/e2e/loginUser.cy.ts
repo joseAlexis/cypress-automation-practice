@@ -2,14 +2,6 @@ import { UserModel } from "../support/DTOs/UserModel";
 
 describe("Login User test suite", () => {
 
-    before(function() {
-        // cy.createUserApi(user);
-    })
-
-    after(function() {
-        // cy.removeUserApi(user.email, user.password);
-    })
-
     beforeEach(function () {
         cy.visit('/login');
     })

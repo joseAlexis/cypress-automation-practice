@@ -1,9 +1,6 @@
 import { UserModel } from "../support/DTOs/UserModel";
 
 describe('Resgister User', () => {
-    // beforeEach(function () {
-    //     cy.visit('/');
-    // })
 
     it('Should register a new user', () => {
         cy.visit('/');
@@ -13,9 +10,6 @@ describe('Resgister User', () => {
 
         cy.task('generateUser').then(function (userModel: UserModel) {
             cy.registerUserUI(userModel.name, userModel.email);
-            // cy.get('[data-qa="signup-name"]').type(userModel.name)
-            // cy.get('[data-qa="signup-email"]').type(userModel.email);
-            // cy.get('[data-qa="signup-button"]').click();
 
             cy.url().should('eq', `${Cypress.config().baseUrl}/signup`);
             cy.get('.login-form > h2').should('be.visible').and('contain', 'Enter Account Information');
